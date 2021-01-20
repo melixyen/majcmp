@@ -5,11 +5,14 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "pack": "rollup --config rollup.config.js"
+    "watch": "rollup -f umd --config rollup.config.js --watch -o dist/majcmp.js",
+    "pack": "rollup --config rollup.config.js",
+    "umd": "rollup -f umd --config rollup.config.js -o dist/majcmp.js",
+    "es": "rollup -f es --config rollup.config.js -o dist/majcmp.esm.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/melixyen/rollupVueExample.git"
+    "url": "git+https://melixyen@bitbucket.org/melixyen/majcmp.git"
   },
   "author": "Melix",
   "license": "MIT",

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="initial-scale=1, width=device-width, viewport-fit=cover, user-scalable=no">
+<meta http-equiv=”Pragma” content=”no-cache”>
+<title>Run chart svg</title>
+
+<style>
+	body {
+		background-color: #454647;
+	}
+	.draw {
+		width: 100%;
+		height: 50vh;
+	}
+
+	.panel {
+		color: #ececef;
+	}
+</style>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.12/vue.js"></script>
+<script type="text/javascript" src="./majcmp.js"></script>
+<script type="text/javascript">
+
+	function initA(){
+		new Vue({
+			el: '#app',
+			computed: {
+				datas: function() {
+					return JSON.parse(this.strDatas);
+				},
+				xtags: function() {
+					return JSON.parse(this.strXtags);
+				},
+				lineColor: function() {
+					return JSON.parse(this.strLineColor);
+				}
+			},
+			data: {
+				width: 800,
+				height: 500,
+				bgcolor: '#ffffff',
+				axisColor: '#a9a9a9',
+				gridColor: '#c2c2c2',
+				fontColor: '#111111',
+				fontSize: 16,
+				strLineColor: '["#77bba0","#dede20"]',
+				lineWidth: 3,
+				dotSize: 5,
+
+				strDatas: '[[65,59,80,81,56,55,40],[83,49,70,71,66,55,60]]',
+				strXtags: '["Jan","Feb","Mar","Apr","May","Jun","Jul"]'
+			},
+			methods: {
+				callbackAniEnd: function(){
+				}
+			}
+		})
+	}
+	window.addEventListener('load', function(){
+		initA();
+	})
+</script>
+</head>
+
+<body onload="">
+
+	<div id="app">
+		<div class="panel">
+			<table>
+				<tr>
+					<td style="text-align:right;"><span>SVG width x height:</span></td>
+					<td>
+						<input type="text" v-model="width" /><input type="text" v-model="height" />
+						<span> , background color:</span><input type="text" v-model="bgcolor" />
+					</td>
+				</tr>
+				<tr>
+					<td style="text-align:right;"><span>Line color:</span></td>
+					<td><span>Axis:</span><input type="text" v-model="axisColor" /><span>Grid:</span><input type="text" v-model="gridColor" /></td>
+				</tr>
+				<tr>
+					<td style="text-align:right;"><span>Font style:</span></td>
+					<td><span>Color:</span><input type="text" v-model="fontColor" /><span>Size:</span><input type="text" v-model="fontSize" /></td>
+				</tr>
+				<tr>
+					<td style="text-align:right;"><span>Line style:</span></td>
+					<td><span>Color (JSON):</span><input type="text" v-model="strLineColor" style="width:300px;" /><span>Width:</span><input type="text" v-model="lineWidth" /></td>
+				</tr>
+				<tr>
+					<td style="text-align:right;"><span>Dot size:</span></td>
+					<td><input type="text" v-model="dotSize" /></td>
+				</tr>
+				<tr>
+					<td style="text-align:right;"><span>xtags (JSON):</span></td>
+					<td><input type="text" v-model="strXtags" style="width:50vw"/></td>
+				</tr>
+				<tr>
+					<td style="text-align:right;"><span>datas (JSON):</span></td>
+					<td><input type="text" v-model="strDatas" style="width:50vw"/></td>
+				</tr>
+			</table>
+		</div>
+		<div id="draw">
+			<lu-run-chart 
+				:width="width" :height="height" :bgcolor="bgcolor" :axis-color="axisColor" :grid-color="gridColor"
+				:font-size="fontSize" :font-color="fontColor"
+				:line-color="lineColor" :line-width="lineWidth" :dot-size="dotSize"
+
+				:datas="datas" :xtags="xtags"
+			></lu-run-chart>
+		</div>
+	</div>
+</body>
+
+</html>

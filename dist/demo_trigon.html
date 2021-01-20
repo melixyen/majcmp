@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="initial-scale=1, width=device-width, viewport-fit=cover, user-scalable=no">
+<meta http-equiv=”Pragma” content=”no-cache”>
+<title>Trigon score canvas</title>
+
+<style>
+	body {
+		background-color: #454647;
+	}
+	.draw {
+		width: 100%;
+		height: 50vh;
+	}
+
+	.panel {
+		color: #ececef;
+	}
+</style>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.12/vue.js"></script>
+<script type="text/javascript" src="./majcmp.js"></script>
+<script type="text/javascript">
+
+	function initA(){
+		new Vue({
+			el: '#app',
+			data: {
+				flagBorderCover: true,
+				trigonLineLength: 400,
+				trigonBorderWidth: 2,
+				trigonDotWidth: 4,
+				trigonBorderColor: "#daaa20",
+				trigonAreaColor: "rgba(200,200,200,0.6)",
+				trigonDelay: 0,
+				trigonAnimation: 500,
+				trigonRates: ["65.20", "43.67", "24.8"],
+				vismode: '',
+				ui_vismode: [{tx:'No use', val:''}, {tx:'1', val:'1'}, {tx:'2', val:'2'}]
+			},
+			methods: {
+				callbackAniEnd: function(){
+					console.log('Animation end at ' + new Date().toLocaleTimeString());
+				}
+			}
+		})
+	}
+	window.addEventListener('load', function(){
+		initA();
+	})
+</script>
+</head>
+
+<body onload="">
+
+	<div id="app">
+		<div class="panel">
+			<table>
+				<tr>
+					<td style="text-align:right;"><span>Line Length:</span></td>
+					<td><input type="text" v-model="trigonLineLength" /></td>
+				</tr>
+				<tr>
+					<td style="text-align:right;"><span>Border Width:</span></td>
+					<td><input type="text" v-model="trigonBorderWidth" /></td>
+				</tr>
+				<tr>
+					<td style="text-align:right;"><span>Dot Width:</span></td>
+					<td><input type="text" v-model="trigonDotWidth" /></td>
+				</tr>
+				<tr>
+					<td style="text-align:right;"><span>Border Color:</span></td>
+					<td><input type="text" v-model="trigonBorderColor" /></td>
+				</tr>
+				<tr>
+					<td style="text-align:right;"><span>Area Color:</span></td>
+					<td><input type="text" v-model="trigonAreaColor" /></td>
+				</tr>
+				<tr>
+					<td style="text-align:right;"><span>Rates:</span></td>
+					<td>
+						<span>自摸:</span><span></span><input type="text" v-model="trigonRates[0]" /></span>
+						<span>胡牌:</span><span></span><input type="text" v-model="trigonRates[1]" /></span>
+						<span>放槍:</span><span></span><input type="text" v-model="trigonRates[2]" /></span>
+					</td>
+				</tr>
+				<tr>
+					<td style="text-align:right;"><span>Animation:</span></td>
+					<td>
+						<span>Delay:</span><span><input type="text" v-model="trigonDelay" /></span>
+						<span>Animation:</span><span><input type="text" v-model="trigonAnimation" /></span>
+					</td>
+				</tr>
+				<tr>
+					<td style="text-align:right;"><span>Cover:</span></td>
+					<td><input type="checkbox" v-model="flagBorderCover" />
+					</td>
+				</tr>
+				<tr>
+					<td style="text-align:right;"><span>Visualization Mode:</span></td>
+					<td><select v-model="vismode"><option v-for="t in ui_vismode" :value="t.val">{{t.tx}}</option></select>
+					</td>
+				</tr>
+			</table>
+		</div>
+		<div id="draw">
+			<trigon-score-image :linelength="trigonLineLength" :dotwidth="trigonDotWidth" :borderwidth="trigonBorderWidth" :bordercolor="trigonBorderColor"
+			:areacolor="trigonAreaColor" :rates="trigonRates" :delaytime="trigonDelay" :animationtime="trigonAnimation" 
+			:bordercover="flagBorderCover" :vismode="vismode" 
+			v-on:callbackend="callbackAniEnd"></trigon-score-image>
+		</div>
+	</div>
+</body>
+
+</html>

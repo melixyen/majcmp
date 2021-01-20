@@ -1,8 +1,10 @@
 import Puk from './components/puk';
 import Confirm from './components/popup';
 import Alert from './components/alert';
+import Trigon from './components/trigon';
+import RunChart from './components/runChart'
 
-const components = [Puk, Confirm, Alert];
+const components = [Puk, Confirm, Alert, Trigon, RunChart];
 
 let lui = {}
 const PRE_NAME = '';
