@@ -3,8 +3,9 @@ import Confirm from './components/popup';
 import Alert from './components/alert';
 import Trigon from './components/trigon';
 import RunChart from './components/runChart'
+import PieChart from './components/pieChart'
 
-const components = [Puk, Confirm, Alert, Trigon, RunChart];
+const components = [Puk, Confirm, Alert, Trigon, RunChart, PieChart];
 
 let lui = {}
 const PRE_NAME = '';

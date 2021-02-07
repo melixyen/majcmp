@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="initial-scale=1, width=device-width, viewport-fit=cover, user-scalable=no">
+<meta http-equiv=”Pragma” content=”no-cache”>
+<title>Pie chart svg</title>
+
+<style>
+	body {
+		background-color: #454647;
+	}
+	.draw {
+		width: 100%;
+		height: 50vh;
+	}
+
+	.panel {
+		color: #ececef;
+	}
+</style>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.12/vue.js"></script>
+<script type="text/javascript" src="./majcmp.js"></script>
+<script type="text/javascript">
+
+var strDatas = `[
+	{"name":"B", "count":536, "color":"#ff0000", "fontColor":"#3f303f"},
+	{"name":"C", "count":242, "color":"#0000ff", "fontColor":"#3f3000"},
+	{"name":"A", "count":36, "color":"#4f0000", "fontColor":"#afa0af"},
+	{"name":"D", "count":1242, "color":"#00e0ff", "fontColor":"#4f5020"}
+]`
+	function initA(){
+		new Vue({
+			el: '#app',
+			computed: {
+				datas: function() {
+					return JSON.parse(this.strDatas);
+				}
+			},
+			data: {
+				animate: true,
+				diameter: 500,
+				fontSize: 16,
+				pretext: '票數',
+				bgcolor: '#ffffff',
+				minTextDegree: 30,
+				displayMinText: false,
+				strDatas: strDatas
+			},
+			methods: {
+				callbackAniEnd: function(){
+				}
+			}
+		})
+	}
+	window.addEventListener('load', function(){
+		initA();
+	})
+</script>
+</head>
+
+<body onload="">
+
+	<div id="app">
+		<div class="panel">
+			<table>
+				<tr>
+					<td style="text-align:right;"><span>diameter:</span></td>
+					<td><input type="text" v-model="diameter" /></td>
+				</tr>
+				<tr>
+					<td style="text-align:right;"><span>pretext:</span></td>
+					<td><input type="text" v-model="pretext" /></td>
+				</tr>
+				<tr>
+					<td style="text-align:right;"><span>bgcolor:</span></td>
+					<td><input type="text" v-model="bgcolor" /></td>
+				</tr>
+				<tr>
+					<td style="text-align:right;"><span>min-text-degree:</span></td>
+					<td><input type="text" v-model="minTextDegree" /></td>
+				</tr>
+				<tr>
+					<td style="text-align:right;"><span>font-size:</span></td>
+					<td><input type="text" v-model="fontSize" /></td>
+				</tr>
+				<tr>
+					<td style="text-align:right;"><span>display-min-text:</span></td>
+					<td><input type="checkbox" v-model="displayMinText" /></td>
+				</tr>
+				<tr>
+					<td style="text-align:right;"><span>animate:</span></td>
+					<td><input type="checkbox" v-model="animate" /></td>
+				</tr>
+				<tr>
+					<td style="text-align:right;"><span>datas (JSON):</span></td>
+					<td><textarea v-model="strDatas" style="width:50vw; height:100px"></textarea></td>
+				</tr>
+			</table>
+		</div>
+		<div id="draw">
+			<lu-pie-chart 
+				:animate="animate"
+				:diameter="diameter"
+				:bgcolor="bgcolor"
+				:font-size="fontSize"
+				:pretext="pretext"
+				:min-text-degree="minTextDegree"
+				:display-min-text="displayMinText"
+				:datas="datas"
+			></lu-run-chart>
+		</div>
+	</div>
+</body>
+
+</html>
