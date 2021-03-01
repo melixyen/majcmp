@@ -1456,7 +1456,247 @@ __vue_render__$5._withStripped = true;
     undefined
   );
 
-const components = [__vue_component__, __vue_component__$1, __vue_component__$2, __vue_component__$3, __vue_component__$4, __vue_component__$5];
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+var script$6 = {
+    name: "lu-bar-chart",
+    props: [
+        'datas',
+        'width', 'height', 'bgcolor',
+        'flexBar', 'flexGap',
+        'axisColor',
+        'fontSize', 'fontColor'
+    ],
+    computed: {
+        _axisColor: function(){ return this.axisColor || '#444444'; },
+        _fontSize: function(){ return this.fontSize || 14; },
+        _fontColor: function(){ return this.fontColor || '#111111'; },
+        paddingTop: function(){ return this._fontSize * 2 ;},
+        paddingBottom: function(){ return Math.round(this._fontSize * 2.5) ;},
+        chartWidth: function() {
+            let w = this.getProps('width');
+            return w;
+        },
+        chartHeight: function() {
+            let h = this.getProps('height');
+            return h;
+        },
+        axisBottom: function() {
+            let w = this.getProps('width');
+            let h = this.getProps('height');
+            return {
+                x1:0,
+                y1:h - this.paddingBottom,
+                x2:w,
+                y2:h - this.paddingBottom
+            }
+        },
+        barPosition: function(){
+            var flexBar = parseInt(this.flexBar) || 3;
+            var flexGap = parseInt(this.flexGap) || 2;
+            var countsData = this.datas.map((c)=>{ return c.count; });
+            let minValue = Math.min.apply(this, countsData);
+            let maxValue = Math.max.apply(this, countsData);
+
+            let w = this.getProps('width');
+            let h = this.getProps('height');
+
+            let barHeight = h - this.paddingTop - this.paddingBottom;
+            let barBottom = h - this.paddingBottom;
+            let len = this.datas.length;
+            let totalSep = (flexBar * len) + (flexGap * len) + flexGap;
+            let sepWidth = w / totalSep;
+
+            let lastX = 0;
+            let aryPosition = [];
+            for(var i=0; i<len; i++){
+                var barX = lastX + (flexGap * sepWidth);
+                var gapX = barX + (flexBar * sepWidth);
+                var barH = barHeight * (countsData[i] / maxValue) * this.drawFullRate;
+                var barY = barBottom - barH;
+                lastX = gapX;
+
+                var textPos = {x: barX + (flexBar * sepWidth / 2), y: barBottom + (this.paddingBottom / 2)};
+                var countPos = {x: barX + (flexBar * sepWidth / 2), y: barY - (this.paddingTop / 2)};
+
+                aryPosition.push({
+                    x1: barX,
+                    x2: gapX,
+                    textPos: textPos,
+                    countPos: countPos,
+                    y: barY,
+                    width: flexBar * sepWidth,
+                    height: barH,
+                    name: this.datas[i].name,
+                    count: this.datas[i].count,
+                    color: this.datas[i].color
+                });
+            }
+
+            return aryPosition;
+        }
+    },
+    data() {return {
+        pdLeft: 80,
+        pdRight: 80,
+        drawFullRate: 1,
+        rectStyle: 'transition:all 0.8s ease;',
+        strokeWidthAxis: 2,
+        strokeWidthGrid: 1
+    }},
+    methods: {
+        getProps: function(st){
+            switch(st){
+                case 'width':
+                    return parseInt(this.width) || 800;
+                case 'height':
+                    return parseInt(this.height) || 600;
+            }
+        },
+        getMinMaxStep: function(step, min, max) {
+            var smin = min - (min % step), smax = max - (max % step) + step;
+            return {min:smin, max:smax}
+        },
+        getSvgStyle: function() {
+            let bgcolor = this.bgcolor || '#ffffff';
+            return 'background-color:' + bgcolor + ';';
+        },
+        enableDraw: function(){}
+    },
+    watch :{
+        $props: {
+            handler: function(){
+                this.enableDraw();
+            },
+            deep: true
+        }
+    }
+};
+
+/* script */
+const __vue_script__$6 = script$6;
+
+/* template */
+var __vue_render__$6 = function() {
+  var _vm = this;
+  var _h = _vm.$createElement;
+  var _c = _vm._self._c || _h;
+  return _c("div", [
+    _c(
+      "svg",
+      {
+        style: _vm.getSvgStyle(),
+        attrs: { width: _vm.width, height: _vm.height }
+      },
+      [
+        _c("line", {
+          attrs: {
+            stroke: _vm._axisColor,
+            "stroke-width": _vm.strokeWidthAxis,
+            x1: _vm.axisBottom.x1,
+            y1: _vm.axisBottom.y1,
+            x2: _vm.axisBottom.x2,
+            y2: _vm.axisBottom.y2
+          }
+        }),
+        _vm._v(" "),
+        _vm._l(_vm.barPosition, function(p, i) {
+          return _c("g", [
+            _c("rect", {
+              style: _vm.rectStyle,
+              attrs: {
+                x: p.x1,
+                y: p.y,
+                width: p.width,
+                height: p.height,
+                fill: p.color
+              }
+            }),
+            _vm._v(" "),
+            _c(
+              "text",
+              {
+                attrs: {
+                  x: p.textPos.x,
+                  y: p.textPos.y,
+                  "font-size": _vm._fontSize,
+                  stroke: _vm._fontColor,
+                  "text-anchor": "middle",
+                  "alignment-baseline": "middle"
+                }
+              },
+              [_vm._v(_vm._s(p.name))]
+            ),
+            _vm._v(" "),
+            _c(
+              "text",
+              {
+                attrs: {
+                  x: p.countPos.x,
+                  y: p.countPos.y,
+                  "font-size": _vm._fontSize,
+                  stroke: _vm._fontColor,
+                  "text-anchor": "middle",
+                  "alignment-baseline": "middle"
+                }
+              },
+              [_vm._v(_vm._s(p.count))]
+            )
+          ])
+        })
+      ],
+      2
+    )
+  ])
+};
+var __vue_staticRenderFns__$6 = [];
+__vue_render__$6._withStripped = true;
+
+  /* style */
+  const __vue_inject_styles__$6 = undefined;
+  /* scoped */
+  const __vue_scope_id__$6 = undefined;
+  /* module identifier */
+  const __vue_module_identifier__$6 = undefined;
+  /* functional template */
+  const __vue_is_functional_template__$6 = false;
+  /* style inject */
+  
+  /* style inject SSR */
+  
+  /* style inject shadow dom */
+  
+
+  
+  const __vue_component__$6 = /*#__PURE__*/normalizeComponent(
+    { render: __vue_render__$6, staticRenderFns: __vue_staticRenderFns__$6 },
+    __vue_inject_styles__$6,
+    __vue_script__$6,
+    __vue_scope_id__$6,
+    __vue_is_functional_template__$6,
+    __vue_module_identifier__$6,
+    false,
+    undefined,
+    undefined,
+    undefined
+  );
+
+const components = [__vue_component__, __vue_component__$1, __vue_component__$2, __vue_component__$3, __vue_component__$4, __vue_component__$5, __vue_component__$6];
 
 let lui = {};
 const PRE_NAME = '';

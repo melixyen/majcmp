@@ -4,8 +4,9 @@ import Alert from './components/alert';
 import Trigon from './components/trigon';
 import RunChart from './components/runChart'
 import PieChart from './components/pieChart'
+import BarChart from './components/barChart'
 
-const components = [Puk, Confirm, Alert, Trigon, RunChart, PieChart];
+const components = [Puk, Confirm, Alert, Trigon, RunChart, PieChart, BarChart];
 
 let lui = {}
 const PRE_NAME = '';
