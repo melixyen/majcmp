@@ -1554,7 +1554,7 @@ var script$6 = {
     data() {return {
         pdLeft: 80,
         pdRight: 80,
-        drawFullRate: 1,
+        drawFullRate: 0.03,
         rectStyle: 'transition:all 0.8s ease;',
         strokeWidthAxis: 2,
         strokeWidthGrid: 1
@@ -1577,6 +1577,11 @@ var script$6 = {
             return 'background-color:' + bgcolor + ';';
         },
         enableDraw: function(){}
+    },
+    created: function(){
+        setTimeout(()=>{
+            this.drawFullRate = 1;
+        }, 100);
     },
     watch :{
         $props: {
@@ -1696,7 +1701,145 @@ __vue_render__$6._withStripped = true;
     undefined
   );
 
-const components = [__vue_component__, __vue_component__$1, __vue_component__$2, __vue_component__$3, __vue_component__$4, __vue_component__$5, __vue_component__$6];
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+var script$7 = {
+    name: "lu-hori-bar",
+    props: [
+        'datas', 'bgcolor', 'padding',
+        'fontSize', 'fontColor'
+    ],
+    computed: {
+        _fontSize: function(){ return this.fontSize || 14; },
+        _fontColor: function(){ return this.fontColor || '#111111'; },
+        maxCount: function(){
+            var maxCount = 0;
+            var countAry = this.datas.map((c)=>{ maxCount = Math.max(maxCount, c.count); return c.count; });
+            return maxCount;
+        },
+        nameStyle: function(){
+            return 'display:table-cell;max-width:30%;width:30%;text-align:right;';
+        },
+        barStyle: function(){
+            return 'display:table-cell;max-width:40%;width:40%;';
+        },
+        countStyle: function(){
+            return 'display:table-cell;max-width:30%;width:30%;text-align:left;';
+        },
+        outStyle: function(){
+            let bgcolor = this.bgcolor || 'transparent';
+            let padding = this.padding || '0px';
+            return 'background-color:' + bgcolor + '; display:flex; padding:' + padding + '; font-size:' + this._fontSize + 'px; color:' + this._fontColor + ';';
+        }
+    },
+    data() {return {
+        comeZero: true
+    }},
+    methods: {
+        barBlockStyle: function(p){
+            //maxCount
+            let percent = Math.round(p.count / this.maxCount * 100);
+            if(this.comeZero) percent = 1;
+            return 'background-color:' + p.color + '; display:inline-block; height:' + this._fontSize + 'px; width:' + percent + '%; transition: all 0.8s ease;';
+
+        },
+        enableDraw: function(){}
+    },
+    created: function(){
+        setTimeout(()=>{
+            this.comeZero = false;
+        }, 100);
+    },
+    watch :{
+        $props: {
+            handler: function(){
+                this.enableDraw();
+            },
+            deep: true
+        }
+    }
+};
+
+/* script */
+const __vue_script__$7 = script$7;
+
+/* template */
+var __vue_render__$7 = function() {
+  var _vm = this;
+  var _h = _vm.$createElement;
+  var _c = _vm._self._c || _h;
+  return _c(
+    "div",
+    { staticClass: "hori-bar-out", style: _vm.outStyle },
+    _vm._l(_vm.datas, function(p) {
+      return _c(
+        "div",
+        {
+          staticClass: "hori-bar-sect",
+          staticStyle: { flex: "1", display: "inline-flex" }
+        },
+        [
+          _c("div", { staticClass: "hori-bar-name", style: _vm.nameStyle }, [
+            _vm._v(_vm._s(p.name))
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "hori-bar-block", style: _vm.barStyle }, [
+            _c("div", { style: _vm.barBlockStyle(p) })
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "hori-bar-count", style: _vm.countStyle }, [
+            _vm._v(_vm._s(p.count))
+          ])
+        ]
+      )
+    }),
+    0
+  )
+};
+var __vue_staticRenderFns__$7 = [];
+__vue_render__$7._withStripped = true;
+
+  /* style */
+  const __vue_inject_styles__$7 = undefined;
+  /* scoped */
+  const __vue_scope_id__$7 = undefined;
+  /* module identifier */
+  const __vue_module_identifier__$7 = undefined;
+  /* functional template */
+  const __vue_is_functional_template__$7 = false;
+  /* style inject */
+  
+  /* style inject SSR */
+  
+  /* style inject shadow dom */
+  
+
+  
+  const __vue_component__$7 = /*#__PURE__*/normalizeComponent(
+    { render: __vue_render__$7, staticRenderFns: __vue_staticRenderFns__$7 },
+    __vue_inject_styles__$7,
+    __vue_script__$7,
+    __vue_scope_id__$7,
+    __vue_is_functional_template__$7,
+    __vue_module_identifier__$7,
+    false,
+    undefined,
+    undefined,
+    undefined
+  );
+
+const components = [__vue_component__, __vue_component__$1, __vue_component__$2, __vue_component__$3, __vue_component__$4, __vue_component__$5, __vue_component__$6, __vue_component__$7];
 
 let lui = {};
 const PRE_NAME = '';

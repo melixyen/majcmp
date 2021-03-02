@@ -96,7 +96,7 @@
         data() {return {
             pdLeft: 80,
             pdRight: 80,
-            drawFullRate: 1,
+            drawFullRate: 0.03,
             rectStyle: 'transition:all 0.8s ease;',
             strokeWidthAxis: 2,
             strokeWidthGrid: 1
@@ -121,6 +121,11 @@
                 return 'background-color:' + bgcolor + ';';
             },
             enableDraw: function(){}
+        },
+        created: function(){
+            setTimeout(()=>{
+                this.drawFullRate = 1;
+            }, 100)
         },
         watch :{
             $props: {

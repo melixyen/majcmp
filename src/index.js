@@ -5,8 +5,9 @@ import Trigon from './components/trigon';
 import RunChart from './components/runChart'
 import PieChart from './components/pieChart'
 import BarChart from './components/barChart'
+import HoriBar from './components/horiBar'
 
-const components = [Puk, Confirm, Alert, Trigon, RunChart, PieChart, BarChart];
+const components = [Puk, Confirm, Alert, Trigon, RunChart, PieChart, BarChart, HoriBar];
 
 let lui = {}
 const PRE_NAME = '';
