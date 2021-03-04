@@ -4,7 +4,7 @@
 
             <line :stroke="_axisColor" :stroke-width="strokeWidthAxis" :x1="axisBottom.x1" :y1="axisBottom.y1" :x2="axisBottom.x2" :y2="axisBottom.y2" />
 
-            <g v-for="(p,i) in barPosition">
+            <g v-for="(p,i) in barPosition" :style="gStyle">
                 <rect :x="p.x1" :y="p.y" :width="p.width" :height="p.height" :fill="p.color" :style="rectStyle" />
                 <text :x="p.textPos.x" :y="p.textPos.y" :font-size="_fontSize" :stroke="_fontColor" text-anchor="middle" alignment-baseline="middle">{{p.name}}</text>
                 <text :x="p.countPos.x" :y="p.countPos.y" :font-size="_fontSize" :stroke="_fontColor" text-anchor="middle" alignment-baseline="middle">{{p.count}}</text>
@@ -22,7 +22,7 @@
             'width', 'height', 'bgcolor',
             'flexBar', 'flexGap',
             'axisColor',
-            'fontSize', 'fontColor'
+            'fontSize', 'fontColor', 'fontFamily'
         ],
         computed: {
             _axisColor: function(){ return this.axisColor || '#444444'; },
@@ -30,6 +30,12 @@
             _fontColor: function(){ return this.fontColor || '#111111'; },
             paddingTop: function(){ return this._fontSize * 2 ;},
             paddingBottom: function(){ return Math.round(this._fontSize * 2.5) ;},
+            gStyle: function() {
+                let rt = '';
+                let fontFamily = (this.fontFamily) ? 'font-family:' + this.fontFamily + ';' : '';
+                rt += fontFamily;
+                return rt;
+            },
             chartWidth: function() {
                 let w = this.getProps('width');
                 return w;

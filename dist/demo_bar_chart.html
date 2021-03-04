@@ -47,6 +47,7 @@ var strDatas = `[
 				axisColor: '#a9a9a9',
 				fontColor: '#111111',
 				fontSize: 16,
+				fontFamily: 'Menlo,Monaco,Consolas,monospace,Lucida console',
 				strLineColor: '["#77bba0","#dede20"]',
 				flexGap: 1,
 				flexBar: 3,
@@ -83,7 +84,7 @@ var strDatas = `[
 				</tr>
 				<tr>
 					<td style="text-align:right;"><span>Font style:</span></td>
-					<td><span>Color:</span><input type="text" v-model="fontColor" /><span>Size:</span><input type="text" v-model="fontSize" /></td>
+					<td><span>Color:</span><input type="text" v-model="fontColor" /><span>Size:</span><input type="text" v-model="fontSize" /><span>Family:</span><input type="text" v-model="fontFamily" /></td>
 				</tr>
 				<tr>
 					<td style="text-align:right;"><span>Flex:</span></td>
@@ -98,7 +99,7 @@ var strDatas = `[
 		<div id="draw">
 			<lu-bar-chart 
 				:width="width" :height="height" :bgcolor="bgcolor" :axis-color="axisColor"
-				:font-size="fontSize" :font-color="fontColor"
+				:font-size="fontSize" :font-color="fontColor" :font-family="fontFamily"
 				:flex-gap="flexGap" :flex-bar="flexBar"
 
 				:datas="datas"

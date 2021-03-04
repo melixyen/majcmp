@@ -28,7 +28,7 @@ var strDatas = `[
 	{"name":"Jan", "count":65, "color":"#ff0000"},
 	{"name":"Feb", "count":59, "color":"#0000ff"},
 	{"name":"Mar", "count":80, "color":"#4f0000"},
-	{"name":"Apr", "count":13, "color":"#7faa00"},
+	{"name":"Apr", "count":13, "color":"#7faa00", "borderColor":"#35efec"},
 	{"name":"May", "count":49, "color":"#00e0ff"}
 ]`
 
@@ -42,8 +42,11 @@ var strDatas = `[
 			},
 			data: {
 				bgcolor: '#ffffff',
+				barBorderColor: '',
+				barBorderWidth: '2px',
 				fontColor: '#111111',
-				fontSize: 16,
+				fontSize: '1.3rem',
+				fontFamily: 'Lucida console',
 				strLineColor: '["#77bba0","#dede20"]',
 				padding: '5px 3px',
 
@@ -74,11 +77,15 @@ var strDatas = `[
 				</tr>
 				<tr>
 					<td style="text-align:right;"><span>Font style:</span></td>
-					<td><span>Color:</span><input type="text" v-model="fontColor" /><span>Size:</span><input type="text" v-model="fontSize" /></td>
+					<td><span>Color:</span><input type="text" v-model="fontColor" /><span>Size:</span><input type="text" v-model="fontSize" /><span>Family:</span><input type="text" v-model="fontFamily" /></td>
 				</tr>
 				<tr>
 					<td style="text-align:right;"><span>Div:</span></td>
 					<td><span>padding:</span><input type="text" v-model="padding" /></td>
+				</tr>
+				<tr>
+					<td style="text-align:right;"><span>Bar:</span></td>
+					<td><span>border color:</span><input type="text" v-model="barBorderColor" /><span>border width:</span><input type="text" v-model="barBorderWidth" /></td>
 				</tr>
 				<tr>
 					<td style="text-align:right;"><span>datas (JSON):</span></td>
@@ -89,7 +96,7 @@ var strDatas = `[
 		<div id="draw">
 			<lu-hori-bar 
 				:bgcolor="bgcolor"
-				:font-size="fontSize" :font-color="fontColor"
+				:font-size="fontSize" :font-color="fontColor" :font-family="fontFamily" :bar-border-color="barBorderColor" :bar-border-width="barBorderWidth"
 				:padding="padding"
 
 				:datas="datas"
